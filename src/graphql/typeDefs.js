@@ -34,6 +34,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    isAuth: Boolean!
     login(loginData: LOGIN_DATA): AUTH_TOKEN!
   }
 `;

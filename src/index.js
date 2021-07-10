@@ -6,6 +6,7 @@ const { createDatabaseConnection } = require('./database/createDatabaseConnectio
 const { CustomError } = require('./errors/CustomErrors');
 const resolvers = require('./graphql/resolvers');
 const { typeDefs } = require('./graphql/typeDefs');
+const { authenticateUser } = require('./utils/authenticateUser');
 
 const PORT = process.env.PORT || 5000;
 
@@ -14,11 +15,14 @@ const initializeExpress = async () => {
 
   const server = new ApolloServer({
     context: ({ req }) => {
-      return { req };
+      const user = authenticateUser(req);
+
+      return { req, user };
     },
     formatError: (error) => {
+      console.log(error);
+      // TODO: Better error handler.
       if (error.originalError) {
-        console.log(error.originalError);
         if (error.originalError instanceof CustomError) {
           return {
             code: error.originalError.code,
