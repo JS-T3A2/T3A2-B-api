@@ -3,6 +3,7 @@ const validator = require('validator');
 
 const { BadUserInputError } = require('../../errors/CustomErrors');
 const Admin = require('../../models/admin');
+const { signToken } = require('../../utils');
 
 const createNewAdmin = async (_, { createNewAdminData: { email, password } }) => {
   const errors = [];
@@ -35,7 +36,11 @@ const createNewAdmin = async (_, { createNewAdminData: { email, password } }) =>
 
   const newAdminSaveResponse = await newAdmin.save();
 
-  return { email: newAdminSaveResponse.email, _id: newAdminSaveResponse._id };
+  return {
+    authToken: signToken({ email: newAdminSaveResponse.email, _id: newAdminSaveResponse._id }),
+    email: newAdminSaveResponse.email,
+    _id: newAdminSaveResponse._id,
+  };
 };
 
 module.exports = { createNewAdmin };

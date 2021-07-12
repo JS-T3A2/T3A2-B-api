@@ -1,6 +1,12 @@
 const jwt = require('jsonwebtoken');
 const { isPlainObject } = require('lodash');
 
+const signToken = (payload, options = {}) =>
+  jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: '7 days',
+    ...options,
+  });
+
 const verifyToken = (token) => {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
@@ -12,4 +18,4 @@ const verifyToken = (token) => {
   }
 };
 
-module.exports = { verifyToken };
+module.exports = { signToken, verifyToken };

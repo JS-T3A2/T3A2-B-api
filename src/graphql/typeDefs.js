@@ -16,6 +16,7 @@ const typeDefs = gql`
   }
 
   type ADMIN {
+    authToken: String
     email: String
     _id: ID!
   }
@@ -25,7 +26,9 @@ const typeDefs = gql`
   }
 
   type PRODUCT_DATA {
-    productName: String
+    description: String!
+    name: String!
+    price: Float!
   }
 
   type Mutation {

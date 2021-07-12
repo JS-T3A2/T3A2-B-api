@@ -1,4 +1,4 @@
 const { authenticateUser } = require('./authenticateUser');
-const { verifyToken } = require('./authToken');
+const { signToken, verifyToken } = require('./authToken');
 
-module.exports = { authenticateUser, verifyToken };
+module.exports = { authenticateUser, signToken, verifyToken };

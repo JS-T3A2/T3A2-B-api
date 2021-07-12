@@ -1,5 +1,2 @@
-const isAuth = (_, __, { user }) => {
-  return Boolean(user);
-};
-
+const isAuth = (_, __, { user }) => Boolean(user);
 module.exports = { isAuth };
